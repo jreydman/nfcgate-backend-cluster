@@ -1,0 +1,14 @@
+# vim: ft=nginx
+
+upstream ${NFCGATESERVER_SERVICE_HOST} {
+    server ${NFCGATESERVER_SERVICE_HOST}:${NFCGATESERVER_PORT};
+}
+
+server {
+        listen ${NFCGATESERVER_PORT};
+        server_name ${NFCGATESERVER_DOMAIN};
+        proxy_connect_timeout 60s;
+        proxy_socket_keepalive on;
+
+        proxy_pass  ${NFCGATESERVER_SERVICE_HOST};
+}

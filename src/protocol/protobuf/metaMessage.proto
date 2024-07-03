@@ -1,0 +1,6 @@
+syntax = "proto3";
+package de.tu_darmstadt.seemoo.nfcgate.network.c2s;
+
+message Wrapper {
+    
+}

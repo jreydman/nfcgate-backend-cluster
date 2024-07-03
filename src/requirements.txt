@@ -1,0 +1,2 @@
+protobuf
+python_dotenv
