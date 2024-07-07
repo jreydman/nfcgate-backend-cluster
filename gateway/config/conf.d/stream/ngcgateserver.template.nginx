@@ -10,5 +10,10 @@ server {
         proxy_connect_timeout 60s;
         proxy_socket_keepalive on;
 
+        ssl_certificate /etc/nginx/certs/server.pem;
+        ssl_certificate_key /etc/nginx/certs/server.key;
+        ssl_client_certificate /etc/nginx/certs/cacert.pem;
+        ssl_verify_client on;
+
         proxy_pass  ${NFCGATESERVER_SERVICE_HOST};
 }

@@ -20,7 +20,7 @@ source .venv/bin/activate && which python
 deactivate && which python
 
 # dependencies
-python -m pip install protobuf
+python -m pip install protobuf python_dotenv
 
 # generate proto files
 make protogen

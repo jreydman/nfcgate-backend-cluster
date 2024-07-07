@@ -1,25 +1,51 @@
 services:
-  server:
+  ngcgate_server:
     container_name: ${NFCGATESERVER_SERVICE_HOST}
     build:
-      context: ../src
-      dockerfile: ../docker/nfcgate_server.Dockerfile
+      context: ../services/nfcgate_server/src
+      dockerfile: ../../../docker/nfcgate_server.Dockerfile
     env_file: ../.env
     expose: ["${NFCGATESERVER_PORT}"]
+
+  httptest_server:
+    container_name: ${TESTHTTP_SERVICE_HOST}
+    build:
+      context: ../services/httptest_server/src
+      dockerfile: ../../../docker/httptest_server.Dockerfile
+    env_file: ../.env
+    expose: ["${TESTHTTP_PORT}"]
+
   gateway:
+    depends_on:
+      - ngcgate_server
+      - httptest_server
+      - cert-manager
     build:
       context: ../gateway
       dockerfile: ../docker/gateway.Dockerfile
     container_name: ${GATEWAY_SERVICE_HOST}
-    depends_on: [server]
     environment:
       - PROJECT_NAME=${PROJECT_NAME}
       - PROJECT_DOMAIN=${PROJECT_DOMAIN}
       - NFCGATESERVER_DOMAIN=${NFCGATESERVER_DOMAIN}
       - NFCGATESERVER_SERVICE_HOST=${NFCGATESERVER_SERVICE_HOST}
       - NFCGATESERVER_PORT=${NFCGATESERVER_PORT}
-    ports: ["${NFCGATESERVER_PORT}:${NFCGATESERVER_PORT}"]
+      - TESTHTTP_SERVICE_HOST=${TESTHTTP_SERVICE_HOST}
+      - TESTHTTP_PORT=${TESTHTTP_PORT}
+      - TESTHTTP_DOMAIN=${TESTHTTP_DOMAIN}
+    ports:
+      [
+        "${NFCGATESERVER_PORT}:${NFCGATESERVER_PORT}",
+        "${TESTHTTP_PORT}:${TESTHTTP_PORT}",
+      ]
     volumes: ["gateway_config:/etc/nginx", "certs:/etc/nginx/certs"]
+
+  cert-manager:
+    container_name: ${CERT_MANAGER_HOST_SERVICE}
+    image: jacoelho/generate-certificate
+    volumes: ["certs:/certificates"]
+    environment:
+      - SERVER=${PROJECT_DOMAIN}
 
 volumes:
   certs:
