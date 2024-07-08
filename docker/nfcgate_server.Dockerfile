@@ -7,4 +7,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-ENTRYPOINT [ "python", "server.py", "log" ]
+CMD ["python", "-u", "server.py", "log", "--tls_cert", "certs/server.pem", "--tls_key", "certs/server.key", "--tls"]

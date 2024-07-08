@@ -1,10 +1,11 @@
 services:
-  ngcgate_server:
+  nfcgate_server:
     container_name: ${NFCGATESERVER_SERVICE_HOST}
     build:
       context: ../services/nfcgate_server/src
       dockerfile: ../../../docker/nfcgate_server.Dockerfile
     env_file: ../.env
+    volumes: ["certs:/usr/src/app/certs"]
     expose: ["${NFCGATESERVER_PORT}"]
 
   httptest_server:
@@ -17,7 +18,7 @@ services:
 
   gateway:
     depends_on:
-      - ngcgate_server
+      - nfcgate_server
       - httptest_server
       - cert-manager
     build:

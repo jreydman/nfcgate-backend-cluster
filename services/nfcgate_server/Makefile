@@ -13,4 +13,4 @@ run:
 	python $(__source_dir)/server.py log
 
 run-tls:
-	python $(__source_dir)/server.py log --tls-cert $(TLS_CERT) --tls-key $(TLS_KEY) --tls
+	python ${__source_dir}/server.py log --tls_cert ${PWD}/${TLS_CERT} --tls_key ${PWD}/${TLS_KEY} --tls      
