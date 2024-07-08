@@ -10,6 +10,7 @@ The server features a plugin system for data filtering. When starting the server
 ## Meta steps:
 
 ```sh
+# Check this out
 mv .env.example .env
 
 # generate project venv workspace
