@@ -10,6 +10,8 @@ The server features a plugin system for data filtering. When starting the server
 ## Meta steps:
 
 ```sh
+mv .env.example .env
+
 # generate project venv workspace
 python3 -m venv .venv
 
