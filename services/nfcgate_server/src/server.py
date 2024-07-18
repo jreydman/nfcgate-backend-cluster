@@ -11,10 +11,9 @@ from dotenv import load_dotenv
 import asyncio
 
 load_dotenv()
-# HOST = os.getenv("NFCGATESERVER_SERVICE_HOST", "127.0.0.1")
+HOST = os.getenv("NFCGATESERVER_SERVICE_HOST", "127.0.0.1")
 PORT = int(os.getenv("NFCGATESERVER_PORT", 5566))
-HOST = "localhost"
-SESSION_PASSWORD=12345
+# HOST = "localhost"
 
 class PluginHandler:
     def __init__(self, plugins):
