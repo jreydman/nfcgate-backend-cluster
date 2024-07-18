@@ -29,3 +29,6 @@ make run
 # start network cluster
 make run-cluster
 ```
+### Server mode:
+- --tls - should be --tls_key --tls_cert
+- --verify - should be over tls with --ca_cert (for check child/client cert on sefety)
